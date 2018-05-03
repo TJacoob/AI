@@ -4,6 +4,8 @@ import './info.html';
 
 Template.info.onCreated(function () {
   Meteor.subscribe('links.all');
+  //Meteor.subscribe('ScalarValueType.all');
+  Template.instance().subscribe( 'ScalarValueType.all' );
 });
 
 Template.info.helpers({
