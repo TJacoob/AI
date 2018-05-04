@@ -7,7 +7,8 @@ Template.info.onCreated(function () {
   Meteor.subscribe('ScalarValueType.all');
   Meteor.subscribe('EnumValueType.all');
   Meteor.subscribe('Enumerated.all');
-
+  Meteor.subscribe('Property.all');
+  Meteor.subscribe('DeviceType.all');
 });
 
 Template.info.helpers({

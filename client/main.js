@@ -12,3 +12,8 @@ window.EnumValueType =  EnumValueType ;
 import { Enumerated } from '/imports/api/enumerated/enumerated.js';
 window.Enumerated =  Enumerated ;
 
+import { Property } from '/imports/api/property/property.js';
+window.Property =  Property ;
+
+import { DeviceType } from '/imports/api/deviceType/deviceType.js';
+window.DeviceType =  DeviceType ;

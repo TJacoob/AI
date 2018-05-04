@@ -1,8 +1,8 @@
 // All links-related publications
 
 import { Meteor } from 'meteor/meteor';
-import { Property } from '../scalarValueType.js';
+import { Property } from '../property.js';
 
-Meteor.publish('property.all', function () {
+Meteor.publish('Property.all', function () {
 	return Property.find({});
 });
