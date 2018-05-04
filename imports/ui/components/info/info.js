@@ -4,8 +4,10 @@ import './info.html';
 
 Template.info.onCreated(function () {
   Meteor.subscribe('links.all');
-  //Meteor.subscribe('ScalarValueType.all');
-  Template.instance().subscribe( 'ScalarValueType.all' );
+  Meteor.subscribe('ScalarValueType.all');
+  Meteor.subscribe('EnumValueType.all');
+  Meteor.subscribe('Enumerated.all');
+
 });
 
 Template.info.helpers({
