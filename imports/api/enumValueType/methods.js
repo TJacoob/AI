@@ -7,6 +7,7 @@ import { EnumValueType } from './enumValueType.js';
 Meteor.methods({
  	newEnumValue: function(id, name, enumerated)
  	{
- 		EnumValueType.insert({ID:id, name:name, enumerated:enumerated});
+ 		if ( EnumValueType.find({'ID':id}).count() == 0 )		// Unique ID's
+ 			EnumValueType.insert({ID:id, name:name, enumeratedList:enumerated});
  	}
 });
