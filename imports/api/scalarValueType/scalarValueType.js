@@ -35,7 +35,18 @@ ScalarValueTypeSchema = new SimpleSchema({
     step:{
       type: SimpleSchema.Integer,
       label: "Step"
-    }
+    },
+    conversion: {
+      optional: true,
+      type: Object,
+      label: "Conversion"
+    },
+    "conversion.type": {
+      type: String
+    },
+    "conversion.ref": {
+      type: SimpleSchema.Integer,
+    },
 });
 
 ScalarValueType.attachSchema( ScalarValueTypeSchema ); 
