@@ -10,7 +10,8 @@ DeviceType.allow({
 DeviceTypeSchema = new SimpleSchema({
   	ID:{
   		type: SimpleSchema.Integer,
-  		label: "ID"
+  		label: "ID",
+      unique: true
   	},
   	name:{
   		type: String,

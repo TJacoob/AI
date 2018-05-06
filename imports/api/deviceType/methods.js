@@ -7,6 +7,7 @@ import { DeviceType } from './deviceType.js';
 Meteor.methods({
  	newDeviceType: function(id, name, refDeviceClass, description, propertyList)
  	{
- 		DeviceType.insert({ID:id, name:name, refDeviceClass:refDeviceClass, description:description, propertyList:propertyList });
+ 		if ( DeviceType.find({'ID':id}).count() == 0 )		// Unique ID's
+ 			DeviceType.insert({ID:id, name:name, refDeviceClass:refDeviceClass, description:description, propertyList:propertyList });
  	}
 });

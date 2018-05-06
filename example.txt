@@ -207,22 +207,24 @@
 
 <!-- TEST CODE -->
 
-<EnumValueTypeList>
-	<EnumValueType ID="1" Name="On-Off">
-		<Enumerated Name="Off" Value="0" />
-		<Enumerated Name="On" Value="1" />
-	</EnumValueType>
-	<EnumValueType ID="2" Name="Intensity">
-		<Enumerated Name="Low" Value="0" />
-		<Enumerated Name="Medium" Value="1" />
-		<Enumerated Name="High" Value="2" />
-	</EnumValueType>
-</EnumValueTypeList>
-
-<DeviceTypeList>
-	<DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1">
-		<PropertyList>
-			<Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" />
-		</PropertyList>
-	</DeviceType>
-</DeviceTypeList>
+<DomoBusSystem ID="#" Name="x" Type="#.#" Version="#.#" Date="x">
+	<EnumValueTypeList>
+		<EnumValueType ID="1" Name="On-Off">
+			<Enumerated Name="Off" Value="0" />
+			<Enumerated Name="On" Value="1" />
+		</EnumValueType>
+		<EnumValueType ID="2" Name="Intensity">
+			<Enumerated Name="Low" Value="0" />
+			<Enumerated Name="Medium" Value="1" />
+			<Enumerated Name="High" Value="2" />
+		</EnumValueType>
+	</EnumValueTypeList>
+	<DeviceTypeList>
+		<DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1">
+			<PropertyList>
+				<Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" />
+				<Property ID="2" Name="Low-High" AccessMode="RW" ValueType="ENUM" RefValueType="1" />
+			</PropertyList>
+		</DeviceType>
+	</DeviceTypeList>
+</DomoBusSystem>

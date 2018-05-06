@@ -5,21 +5,21 @@ import { ScalarValueType } from '../../api/scalarValueType/scalarValueType.js';
 import { Property } from '../../api/property/property.js';
 import { DeviceType } from '../../api/deviceType/deviceType.js';
 
-
-
 Meteor.startup(() => {
 
-	let callResponse = '<EnumValueTypeList><EnumValueType ID="1" Name="On-Off"><Enumerated Name="Off" Value="0" /><Enumerated Name="On" Value="1" /></EnumValueType><EnumValueType ID="2" Name="Intensity"><Enumerated Name="Low" Value="0" /><Enumerated Name="Medium" Value="1" /><Enumerated Name="High" Value="2" />	</EnumValueType></EnumValueTypeList><DeviceTypeList><DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1"><PropertyList><Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" /></PropertyList></DeviceType></DeviceTypeList>';
+	let callResponse = '<DomoBusSystem ID="#" Name="x" Type="#.#" Version="#.#" Date="x"><EnumValueTypeList><EnumValueType ID="1" Name="On-Off"><Enumerated Name="Off" Value="0" /><Enumerated Name="On" Value="1" /></EnumValueType><EnumValueType ID="2" Name="Intensity"><Enumerated Name="Low" Value="0" /><Enumerated Name="Medium" Value="1" /><Enumerated Name="High" Value="2" /></EnumValueType></EnumValueTypeList><DeviceTypeList><DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1"><PropertyList><Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" /><Property ID="2" Name="Low-High" AccessMode="RW" ValueType="ENUM" RefValueType="1" /></PropertyList></DeviceType></DeviceTypeList></DomoBusSystem>';
 	xml2js.parseString(callResponse, function (jsError, jsResult) {
-    	//console.error('errors',jsError);
-    	//console.log(jsResult['EnumValueTypeList']['EnumValueType']);
 
-    	if ( jsResult['EnumValueTypeList'] != null )
+		//console.log(jsResult['DomoBusSystem']['DeviceTypeList'][0]['DeviceType']);
+
+    	// Enum Value Types
+    	if ( jsResult['DomoBusSystem']['EnumValueTypeList'] != null )
     	{
-    		for ( evt in jsResult['EnumValueTypeList']['EnumValueType'] )
+    		console.log("Parsing Enum Value Types");
+    		for ( evt in jsResult['DomoBusSystem']['EnumValueTypeList'][0]['EnumValueType'] )
     		{
     			//console.log(evt);
-    			let obj = jsResult['EnumValueTypeList']['EnumValueType'][evt];
+    			let obj = jsResult['DomoBusSystem']['EnumValueTypeList'][0]['EnumValueType'][evt];
     			//console.log(obj['Enumerated']);
     			let enumerated = [];
     			for ( en in obj['Enumerated'] )
@@ -32,13 +32,31 @@ Meteor.startup(() => {
     			Meteor.call('newEnumValue', obj['$']['ID'], obj['$']['Name'], enumerated );
     		}
     	}
-    	
-    	/*
-    	jsResult.ScalarValueTypeList.each( function(svt)
+
+    	// Device Type
+    	if ( jsResult['DomoBusSystem']['DeviceTypeList'] != null )
     	{
-    		console.log(svt);
-    	});
-    	*/
+    		console.log("Parsing Device Types");
+    		for ( index in jsResult['DomoBusSystem']['DeviceTypeList'][0]['DeviceType'] )
+    		{
+    			//console.log(evt);
+    			let obj = jsResult['DomoBusSystem']['DeviceTypeList'][0]['DeviceType'][index];
+    			//console.log(obj['PropertyList']);
+    			//console.log(obj['Enumerated']);
+    			let properties = [];
+    			for ( en in obj['PropertyList'][0]['Property'] )
+    			{
+    				let prop = obj['PropertyList'][0]['Property'][en]['$'];
+    				Meteor.call('newProperty', prop['ID'], prop['Name'], prop['AccessMode'], prop['ValueType'], prop['RefValueType']  )
+    				properties.push(prop['ID']);
+    			}
+    			//console.log(properties);
+
+    			Meteor.call('newDeviceType', obj['$']['ID'], obj['$']['Name'], obj['$']['RefDeviceClass'], obj['$']['Description'], properties );
+    		}
+    	}
+    	
+    	
 	});
 
 	
