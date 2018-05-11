@@ -7,10 +7,22 @@ import { DeviceType } from '../../api/deviceType/deviceType.js';
 
 Meteor.startup(() => {
 
-	let callResponse = '<DomoBusSystem ID="#" Name="x" Type="#.#" Version="#.#" Date="x"><EnumValueTypeList><EnumValueType ID="1" Name="On-Off"><Enumerated Name="Off" Value="0" /><Enumerated Name="On" Value="1" /></EnumValueType><EnumValueType ID="2" Name="Intensity"><Enumerated Name="Low" Value="0" /><Enumerated Name="Medium" Value="1" /><Enumerated Name="High" Value="2" /></EnumValueType></EnumValueTypeList><DeviceTypeList><DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1"><PropertyList><Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" /><Property ID="2" Name="Low-High" AccessMode="RW" ValueType="ENUM" RefValueType="1" /></PropertyList></DeviceType></DeviceTypeList></DomoBusSystem>';
+	let callResponse = '<DomoBusSystem ID="#" Name="x" Type="#.#" Version="#.#" Date="x"><EnumValueTypeList><EnumValueType ID="1" Name="On-Off"><Enumerated Name="Off" Value="0" /><Enumerated Name="On" Value="1" /></EnumValueType><EnumValueType ID="2" Name="Intensity"><Enumerated Name="Low" Value="0" /><Enumerated Name="Medium" Value="1" /><Enumerated Name="High" Value="2" /></EnumValueType></EnumValueTypeList><ScalarValueTypeList><ScalarValueType ID="1" Name="Intensity" NumBits="8" Units="Lums" MinValue="0" MaxValue="100" Step="10"></ScalarValueType></ScalarValueTypeList><DeviceTypeList><DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1"><PropertyList><Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" />				<Property ID="2" Name="Intensity" AccessMode="RW" ValueType="SCALAR" RefValueType="1" />			</PropertyList>		</DeviceType>	</DeviceTypeList>	<DeviceList>		<Device ID="1" RefDeviceType="1" Name="Kitchen Switch" Address="10.200.30.12" RefDivision="1" AccessLevel="1,1" UserBlocked="1,1"></Device>	</DeviceList></DomoBusSystem>';
 	xml2js.parseString(callResponse, function (jsError, jsResult) {
 
-		//console.log(jsResult['DomoBusSystem']['DeviceTypeList'][0]['DeviceType']);
+		//console.log(jsResult['DomoBusSystem']['$']);
+
+    	// Scalar Value Types
+    	if ( jsResult['DomoBusSystem']['ScalarValueTypeList'] != null )
+    	{
+    		console.log("Parsing Scalar Value Types");
+    		for ( svt in jsResult['DomoBusSystem']['ScalarValueTypeList'][0]['ScalarValueType'] )
+    		{
+    			//console.log(evt);
+    			let obj = jsResult['DomoBusSystem']['ScalarValueTypeList'][0]['ScalarValueType'][svt];
+    			Meteor.call('newScalarValue', obj['$']['ID'], obj['$']['Name'], obj['$']['NumBits'], obj['$']['Units'], obj['$']['MinValue'], obj['$']['MaxValue'], obj['$']['Step'] );
+    		}
+    	}
 
     	// Enum Value Types
     	if ( jsResult['DomoBusSystem']['EnumValueTypeList'] != null )
@@ -56,7 +68,21 @@ Meteor.startup(() => {
     		}
     	}
     	
-    	
+    	//Devices
+    	if ( jsResult['DomoBusSystem']['DeviceList'] != null )
+    	{
+    		console.log("Parsing Devices");
+    		for ( dev in jsResult['DomoBusSystem']['DeviceList'][0]['Device'] )
+    		{
+    			//console.log(evt);
+    			let obj = jsResult['DomoBusSystem']['DeviceList'][0]['Device'][dev];
+    			//console.log(obj);
+    			let AccessLevel = obj['$']['AccessLevel'].split(',');
+    			let UserBlocked = obj['$']['UserBlocked'].split(',');
+    			Meteor.call('newDevice', obj['$']['ID'], obj['$']['RefDeviceType'], obj['$']['Name'], obj['$']['Address'], obj['$']['RefDivision'], [AccessLevel[0], AccessLevel[1]], [UserBlocked[0], UserBlocked[1]] );
+    		}
+    	}    	
+
 	});
 
 	

@@ -9,6 +9,7 @@ Template.info.onCreated(function () {
   Meteor.subscribe('Enumerated.all');
   Meteor.subscribe('Property.all');
   Meteor.subscribe('DeviceType.all');
+  Meteor.subscribe('Device.all');
 });
 
 Template.info.helpers({

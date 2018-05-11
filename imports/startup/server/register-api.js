@@ -17,3 +17,6 @@ import '../../api/property/server/publications.js';
 
 import '../../api/deviceType/methods.js';
 import '../../api/deviceType/server/publications.js';
+
+import '../../api/device/methods.js';
+import '../../api/device/server/publications.js';

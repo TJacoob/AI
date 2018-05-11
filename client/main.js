@@ -17,3 +17,6 @@ window.Property =  Property ;
 
 import { DeviceType } from '/imports/api/deviceType/deviceType.js';
 window.DeviceType =  DeviceType ;
+
+import { Device } from '/imports/api/device/device.js';
+window.Device =  Device ;

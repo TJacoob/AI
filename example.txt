@@ -219,12 +219,20 @@
 			<Enumerated Name="High" Value="2" />
 		</EnumValueType>
 	</EnumValueTypeList>
+	<ScalarValueTypeList>
+		<ScalarValueType ID="1" Name="Intensity" NumBits="8" Units="Lums" MinValue="0" MaxValue="100" Step="10">
+		</ScalarValueType>
+	</ScalarValueTypeList>
 	<DeviceTypeList>
 		<DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1">
 			<PropertyList>
 				<Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" />
-				<Property ID="2" Name="Low-High" AccessMode="RW" ValueType="ENUM" RefValueType="1" />
+				<Property ID="2" Name="Intensity" AccessMode="RW" ValueType="SCALAR" RefValueType="1" />
 			</PropertyList>
 		</DeviceType>
 	</DeviceTypeList>
+	<DeviceList>
+		<Device ID="1" RefDeviceType="1" Name="Kitchen Switch" Address="10.200.30.12" RefDivision="1" AccessLevel="1,1" UserBlocked="1,1"></Device>
+	</DeviceList>
 </DomoBusSystem>
+
