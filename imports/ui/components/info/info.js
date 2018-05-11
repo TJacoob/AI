@@ -10,6 +10,7 @@ Template.info.onCreated(function () {
   Meteor.subscribe('Property.all');
   Meteor.subscribe('DeviceType.all');
   Meteor.subscribe('Device.all');
+  Meteor.subscribe('DeviceState.all');
 });
 
 Template.info.helpers({

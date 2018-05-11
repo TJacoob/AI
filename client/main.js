@@ -20,3 +20,6 @@ window.DeviceType =  DeviceType ;
 
 import { Device } from '/imports/api/device/device.js';
 window.Device =  Device ;
+
+import { DeviceState } from '/imports/api/deviceState/deviceState.js';
+window.DeviceState =  DeviceState ;

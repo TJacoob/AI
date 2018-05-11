@@ -7,7 +7,7 @@ import { DeviceType } from '../../api/deviceType/deviceType.js';
 
 Meteor.startup(() => {
 
-	let callResponse = '<DomoBusSystem ID="#" Name="x" Type="#.#" Version="#.#" Date="x"><EnumValueTypeList><EnumValueType ID="1" Name="On-Off"><Enumerated Name="Off" Value="0" /><Enumerated Name="On" Value="1" /></EnumValueType><EnumValueType ID="2" Name="Intensity"><Enumerated Name="Low" Value="0" /><Enumerated Name="Medium" Value="1" /><Enumerated Name="High" Value="2" /></EnumValueType></EnumValueTypeList><ScalarValueTypeList><ScalarValueType ID="1" Name="Intensity" NumBits="8" Units="Lums" MinValue="0" MaxValue="100" Step="10"></ScalarValueType></ScalarValueTypeList><DeviceTypeList><DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1"><PropertyList><Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" />				<Property ID="2" Name="Intensity" AccessMode="RW" ValueType="SCALAR" RefValueType="1" />			</PropertyList>		</DeviceType>	</DeviceTypeList>	<DeviceList>		<Device ID="1" RefDeviceType="1" Name="Kitchen Switch" Address="10.200.30.12" RefDivision="1" AccessLevel="1,1" UserBlocked="1,1"></Device>	</DeviceList></DomoBusSystem>';
+	let callResponse = '<DomoBusSystem ID="#" Name="x" Type="#.#" Version="#.#" Date="x"><EnumValueTypeList><EnumValueType ID="1" Name="On-Off"><Enumerated Name="Off" Value="0" /><Enumerated Name="On" Value="1" /></EnumValueType><EnumValueType ID="2" Name="Intensity"><Enumerated Name="Low" Value="0" /><Enumerated Name="Medium" Value="1" /><Enumerated Name="High" Value="2" /></EnumValueType></EnumValueTypeList><ScalarValueTypeList><ScalarValueType ID="1" Name="Intensity" NumBits="8" Units="Lums" MinValue="0" MaxValue="100" Step="10"></ScalarValueType></ScalarValueTypeList><DeviceTypeList><DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1"><PropertyList><Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" />				<Property ID="2" Name="Intensity" AccessMode="RW" ValueType="SCALAR" RefValueType="1" />			</PropertyList>		</DeviceType>	</DeviceTypeList>	<DeviceList>		<Device ID="1" RefDeviceType="1" Name="Kitchen Switch" Address="10.200.30.12" RefDivision="1" AccessLevel="1,1" UserBlocked="1,1"></Device>	</DeviceList><DeviceStateList>        <DeviceState RefDevice="1" RefProperty="1" Value="0" InvalidValue="False" />    </DeviceStateList></DomoBusSystem>';
 	xml2js.parseString(callResponse, function (jsError, jsResult) {
 
 		//console.log(jsResult['DomoBusSystem']['$']);
@@ -79,9 +79,23 @@ Meteor.startup(() => {
     			//console.log(obj);
     			let AccessLevel = obj['$']['AccessLevel'].split(',');
     			let UserBlocked = obj['$']['UserBlocked'].split(',');
-    			Meteor.call('newDevice', obj['$']['ID'], obj['$']['RefDeviceType'], obj['$']['Name'], obj['$']['Address'], obj['$']['RefDivision'], [AccessLevel[0], AccessLevel[1]], [UserBlocked[0], UserBlocked[1]] );
+    			Meteor.call('newDevice', obj['$']['ID'], obj['$']['Name'], obj['$']['RefDeviceType'], obj['$']['Address'], obj['$']['RefDivision'], [AccessLevel[0], AccessLevel[1]], [UserBlocked[0], UserBlocked[1]] );
     		}
     	}    	
+
+        //Device States
+        if ( jsResult['DomoBusSystem']['DeviceStateList'] != null )
+        {
+            console.log("Parsing Device State");
+            for ( dev in jsResult['DomoBusSystem']['DeviceStateList'][0]['DeviceState'] )
+            {
+                //console.log(evt);
+                let obj = jsResult['DomoBusSystem']['DeviceStateList'][0]['DeviceState'][dev];
+                //console.log(obj);
+                var invalidValue = (obj['$']['InvalidValue'] == 'True');
+                Meteor.call('newDeviceState', obj['$']['RefDevice'], obj['$']['RefProperty'], obj['$']['Value'], invalidValue  );
+            }
+        }
 
 	});
 

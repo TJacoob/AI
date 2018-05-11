@@ -234,5 +234,8 @@
 	<DeviceList>
 		<Device ID="1" RefDeviceType="1" Name="Kitchen Switch" Address="10.200.30.12" RefDivision="1" AccessLevel="1,1" UserBlocked="1,1"></Device>
 	</DeviceList>
+	<DeviceStateList>
+		<DeviceState RefDevice="1" RefProperty="1" Value="0" InvalidValue="False" />
+	</DeviceStateList>
 </DomoBusSystem>
 

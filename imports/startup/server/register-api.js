@@ -20,3 +20,6 @@ import '../../api/deviceType/server/publications.js';
 
 import '../../api/device/methods.js';
 import '../../api/device/server/publications.js';
+
+import '../../api/deviceState/methods.js';
+import '../../api/deviceState/server/publications.js';
