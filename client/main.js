@@ -23,3 +23,12 @@ window.Device =  Device ;
 
 import { DeviceState } from '/imports/api/deviceState/deviceState.js';
 window.DeviceState =  DeviceState ;
+
+import { House } from '/imports/api/house/house.js';
+window.House =  House ;
+
+import { Floor } from '/imports/api/floor/floor.js';
+window.Floor =  Floor ;
+
+import { Division } from '/imports/api/division/division.js';
+window.Division =  Division ;

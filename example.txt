@@ -237,5 +237,20 @@
 	<DeviceStateList>
 		<DeviceState RefDevice="1" RefProperty="1" Value="0" InvalidValue="False" />
 	</DeviceStateList>
+	<House ID="1" Name="Taguspark" Address="Oeiras" Phone="123">
+		<FloorList>
+			<Floor ID="1" Name="Ground Floor" HeightOrder="0"/>
+			<Floor ID="2" Name="Classrooms" HeightOrder="1"/>
+			<Floor ID="3" Name="Offices" HeightOrder="2"/>
+		</FloorList>
+		<DivisionList>
+			<Division ID="1" Name="Classroom A1" RefFloor="2" AccessLevel="1" />
+			<Division ID="2" Name="Classroom A2" RefFloor="2" AccessLevel="1" />
+			<Division ID="3" Name="Classroom A3" RefFloor="2" AccessLevel="1" />
+			<Division ID="4" Name="Office Z1" RefFloor="3" AccessLevel="1" />
+			<Division ID="5" Name="Office Z3" RefFloor="3" AccessLevel="1" />
+			<Division ID="6" Name="Bar" RefFloor="3" AccessLevel="1" />
+		</DivisionList>
+	</House>
 </DomoBusSystem>
 

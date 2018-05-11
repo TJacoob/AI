@@ -23,3 +23,12 @@ import '../../api/device/server/publications.js';
 
 import '../../api/deviceState/methods.js';
 import '../../api/deviceState/server/publications.js';
+
+import '../../api/house/methods.js';
+import '../../api/house/server/publications.js';
+
+import '../../api/floor/methods.js';
+import '../../api/floor/server/publications.js';
+
+import '../../api/division/methods.js';
+import '../../api/division/server/publications.js';

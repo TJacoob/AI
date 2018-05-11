@@ -11,6 +11,9 @@ Template.info.onCreated(function () {
   Meteor.subscribe('DeviceType.all');
   Meteor.subscribe('Device.all');
   Meteor.subscribe('DeviceState.all');
+  Meteor.subscribe('Floor.all');
+  Meteor.subscribe('House.all');
+  Meteor.subscribe('Division.all');
 });
 
 Template.info.helpers({
