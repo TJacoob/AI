@@ -29,3 +29,4 @@ johanbrook:publication-collector  # Test a Meteor publication by collecting its 
 aldeed:collection2
 http
 peerlibrary:xml2js
+fourseven:scss
