@@ -26,6 +26,7 @@ a:visited { text-decoration: none !important; color:inherit !important; }
 /* Viewports */
 .vh-100 { min-height: 100vh ; }
 .vh-90 { min-height: 90vh ; }
+.vh-85 { min-height: 85vh ; }
 .vh-80 { min-height: 80vh ; }
 .vh-70 { min-height: 70vh ; }
 .vh-60 { min-height: 60vh ; }
@@ -53,7 +54,7 @@ a:visited { text-decoration: none !important; color:inherit !important; }
 /* Background Colors */
 .black { background-color: #1c1c1c; }
 .red { background-color: #870a0a; }
-.grey { background-color: #c1c1c1; }
+.grey { background-color: #dddfd4; }
 .white { background-color: white; }
 .purple { background-color: #8381a8; }
 
@@ -77,3 +78,60 @@ a:visited { text-decoration: none !important; color:inherit !important; }
 .spacer-6 { min-height: 6vh; }
 .spacer-8 { min-height: 8vh; }
 
+/* Hovers */
+
+
+.hvr-floor {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.hvr-floor:hover, .hvr-floor:focus, .hvr-floor:active {
+  background-color: #2c7a77 !important;
+  color: #2c7a77 !important;
+}
+
+.hvr-division {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.hvr-division:hover, .hvr-division:focus, .hvr-division:active {
+  background-color: #fae596 !important;
+  color: #fae596 !important;
+}
+
+.content_center {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+/* Device Card Classes */
+.device-card {
+  border-radius: 0.5em;
+ -webkit-box-shadow: 1px 1px 2px 0px rgba(28,28,28,0.5);
+ -moz-box-shadow: 1px 1px 2px 0px rgba(28,28,28,0.5);
+ box-shadow: 1px 1px 2px 0px rgba(28,28,28,0.5);
+}
+
+.device-card-top {
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  border-bottom: 1px solid rgba(178, 178, 178, 0.25);
+ -webkit-box-shadow: 1px 1px 2px 0px rgba(28,28,28,0.5);
+ -moz-box-shadow: 1px 1px 2px 0px rgba(28,28,28,0.5);
+ box-shadow: 1px 1px 2px 0px rgba(28,28,28,0.5);
+}

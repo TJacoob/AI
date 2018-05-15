@@ -7,7 +7,7 @@ import { DeviceType } from '../../api/deviceType/deviceType.js';
 
 Meteor.startup(() => {
 
-	let callResponse = '<DomoBusSystem ID="#" Name="x" Type="#.#" Version="#.#" Date="x"><EnumValueTypeList><EnumValueType ID="1" Name="On-Off"><Enumerated Name="Off" Value="0" /><Enumerated Name="On" Value="1" /></EnumValueType><EnumValueType ID="2" Name="Intensity"><Enumerated Name="Low" Value="0" /><Enumerated Name="Medium" Value="1" /><Enumerated Name="High" Value="2" /></EnumValueType></EnumValueTypeList><ScalarValueTypeList><ScalarValueType ID="1" Name="Intensity" NumBits="8" Units="Lums" MinValue="0" MaxValue="100" Step="10"></ScalarValueType></ScalarValueTypeList><DeviceTypeList><DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1"><PropertyList><Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" />				<Property ID="2" Name="Intensity" AccessMode="RW" ValueType="SCALAR" RefValueType="1" />			</PropertyList>		</DeviceType>	</DeviceTypeList>	<DeviceList>		<Device ID="1" RefDeviceType="1" Name="Kitchen Switch" Address="10.200.30.12" RefDivision="1" AccessLevel="1,1" UserBlocked="1,1"></Device>	</DeviceList><DeviceStateList>        <DeviceState RefDevice="1" RefProperty="1" Value="0" InvalidValue="False" />    </DeviceStateList><House ID="1" Name="Taguspark" Address="Oeiras" Phone="123">        <FloorList>            <Floor ID="1" Name="Ground Floor" HeightOrder="0"/>            <Floor ID="2" Name="Classrooms" HeightOrder="1"/>            <Floor ID="3" Name="Offices" HeightOrder="2"/>        </FloorList>        <DivisionList>            <Division ID="1" Name="Classroom A1" RefFloor="2" AccessLevel="1" />            <Division ID="2" Name="Classroom A2" RefFloor="2" AccessLevel="1" />            <Division ID="3" Name="Classroom A3" RefFloor="2" AccessLevel="1" />            <Division ID="4" Name="Office Z1" RefFloor="3" AccessLevel="1" />            <Division ID="5" Name="Office Z3" RefFloor="3" AccessLevel="1" />            <Division ID="6" Name="Bar" RefFloor="3" AccessLevel="1" />        </DivisionList>    </House></DomoBusSystem>';
+	let callResponse = '<DomoBusSystem ID="#" Name="x" Type="#.#" Version="#.#" Date="x"><EnumValueTypeList><EnumValueType ID="1" Name="On-Off"><Enumerated Name="Off" Value="0" /><Enumerated Name="On" Value="1" /></EnumValueType><EnumValueType ID="2" Name="Intensity"><Enumerated Name="Low" Value="0" /><Enumerated Name="Medium" Value="1" /><Enumerated Name="High" Value="2" /></EnumValueType></EnumValueTypeList><ScalarValueTypeList><ScalarValueType ID="1" Name="Intensity" NumBits="8" Units="Lums" MinValue="0" MaxValue="100" Step="10"></ScalarValueType></ScalarValueTypeList><DeviceTypeList><DeviceType ID="1" Name="Switch1" RefDeviceClass="1" Description="Switch number 1"><PropertyList><Property ID="1" Name="On-Off" AccessMode="RW" ValueType="ENUM" RefValueType="1" />				<Property ID="2" Name="Intensity" AccessMode="RW" ValueType="SCALAR" RefValueType="1" />			</PropertyList>		</DeviceType>	</DeviceTypeList>	<DeviceList>		<Device ID="1" RefDeviceType="1" Name="Kitchen Switch" Address="10.200.30.12" RefDivision="1" AccessLevel="1,1" UserBlocked="1,1"></Device>	</DeviceList><DeviceStateList>        <DeviceState RefDevice="1" RefProperty="1" Value="0" InvalidValue="False" />    </DeviceStateList><House ID="1" Name="Taguspark" Address="Oeiras" Phone="123">        <FloorList>            <Floor ID="1" Name="Ground Floor" HeightOrder="0"/>            <Floor ID="2" Name="Classrooms" HeightOrder="1"/>            <Floor ID="3" Name="Offices" HeightOrder="2"/>       </FloorList>        <DivisionList>            <Division ID="1" Name="Classroom A1" RefFloor="2" AccessLevel="1" />            <Division ID="2" Name="Classroom A2" RefFloor="2" AccessLevel="1" />            <Division ID="3" Name="Classroom A3" RefFloor="2" AccessLevel="1" />            <Division ID="4" Name="Office Z1" RefFloor="3" AccessLevel="1" />            <Division ID="5" Name="Office Z3" RefFloor="3" AccessLevel="1" />            <Division ID="6" Name="Bar" RefFloor="3" AccessLevel="1" />        </DivisionList>    </House></DomoBusSystem>';
 	xml2js.parseString(callResponse, function (jsError, jsResult) {
 
 		//console.log(jsResult['DomoBusSystem']['$']);
@@ -20,7 +20,7 @@ Meteor.startup(() => {
     		{
     			//console.log(evt);
     			let obj = jsResult['DomoBusSystem']['ScalarValueTypeList'][0]['ScalarValueType'][svt];
-    			Meteor.call('newScalarValue', obj['$']['ID'], obj['$']['Name'], obj['$']['NumBits'], obj['$']['Units'], obj['$']['MinValue'], obj['$']['MaxValue'], obj['$']['Step'] );
+    			Meteor.call('newScalarValue', parseInt(obj['$']['ID']), obj['$']['Name'], parseInt(obj['$']['NumBits']), obj['$']['Units'], parseInt(obj['$']['MinValue']), parseInt(obj['$']['MaxValue']), parseInt(obj['$']['Step']) );
     		}
     	}
 
@@ -41,7 +41,7 @@ Meteor.startup(() => {
     					});
     			//console.log(enumerated);
 
-    			Meteor.call('newEnumValue', obj['$']['ID'], obj['$']['Name'], enumerated );
+    			Meteor.call('newEnumValue', parseInt(obj['$']['ID']), obj['$']['Name'], enumerated );
     		}
     	}
 
@@ -59,12 +59,12 @@ Meteor.startup(() => {
     			for ( en in obj['PropertyList'][0]['Property'] )
     			{
     				let prop = obj['PropertyList'][0]['Property'][en]['$'];
-    				Meteor.call('newProperty', prop['ID'], prop['Name'], prop['AccessMode'], prop['ValueType'], prop['RefValueType']  )
+    				Meteor.call('newProperty', parseInt(prop['ID']), prop['Name'], prop['AccessMode'], prop['ValueType'], parseInt(prop['RefValueType'])  )
     				properties.push(prop['ID']);
     			}
     			//console.log(properties);
 
-    			Meteor.call('newDeviceType', obj['$']['ID'], obj['$']['Name'], obj['$']['RefDeviceClass'], obj['$']['Description'], properties );
+    			Meteor.call('newDeviceType', parseInt(obj['$']['ID']), obj['$']['Name'], obj['$']['RefDeviceClass'], obj['$']['Description'], properties );
     		}
     	}
     	
@@ -79,7 +79,7 @@ Meteor.startup(() => {
     			//console.log(obj);
     			let AccessLevel = obj['$']['AccessLevel'].split(',');
     			let UserBlocked = obj['$']['UserBlocked'].split(',');
-    			Meteor.call('newDevice', obj['$']['ID'], obj['$']['Name'], obj['$']['RefDeviceType'], obj['$']['Address'], obj['$']['RefDivision'], [AccessLevel[0], AccessLevel[1]], [UserBlocked[0], UserBlocked[1]] );
+    			Meteor.call('newDevice', parseInt(obj['$']['ID']), obj['$']['Name'], parseInt(obj['$']['RefDeviceType']), obj['$']['Address'], parseInt(obj['$']['RefDivision']), [AccessLevel[0], AccessLevel[1]], [UserBlocked[0], UserBlocked[1]] );
     		}
     	}    	
 
@@ -93,7 +93,7 @@ Meteor.startup(() => {
                 let obj = jsResult['DomoBusSystem']['DeviceStateList'][0]['DeviceState'][dev];
                 //console.log(obj);
                 var invalidValue = (obj['$']['InvalidValue'] == 'True');
-                Meteor.call('newDeviceState', obj['$']['RefDevice'], obj['$']['RefProperty'], obj['$']['Value'], invalidValue  );
+                Meteor.call('newDeviceState', parseInt(obj['$']['RefDevice']), parseInt(obj['$']['RefProperty']), obj['$']['Value'], invalidValue  );
             }
         }
 
@@ -105,19 +105,19 @@ Meteor.startup(() => {
             for ( floor in jsResult['DomoBusSystem']['House'][0]['FloorList'][0]['Floor'] )
             {
                 let f = jsResult['DomoBusSystem']['House'][0]['FloorList'][0]['Floor'][floor]['$']
-                floors.push(f['ID']);
-                Meteor.call('newFloor', f['ID'], f['Name'], f['HeightOrder']);
+                floors.push(parseInt(f['ID']));
+                Meteor.call('newFloor', parseInt(f['ID']), f['Name'], parseInt(f['HeightOrder']));
             }
             const divisions = [];
             for ( division in jsResult['DomoBusSystem']['House'][0]['DivisionList'][0]['Division'] )
             {
                 let d = jsResult['DomoBusSystem']['House'][0]['DivisionList'][0]['Division'][division]['$']
-                divisions.push(d['ID']);
-                Meteor.call('newDivision', d['ID'], d['Name'], d['RefFloor'], d['AccessLevel']);
+                divisions.push(parseInt(d['ID']));
+                Meteor.call('newDivision', parseInt(d['ID']), d['Name'], parseInt(d['RefFloor']), d['AccessLevel']);
             }
 
             let h = jsResult['DomoBusSystem']['House'][0]['$'];
-            Meteor.call('newHouse', h['ID'], h['Name'], h['Address'], h['Phone'], floors, divisions );
+            Meteor.call('newHouse', parseInt(h['ID']), h['Name'], h['Address'], h['Phone'], floors, divisions );
             /*
             for ( dev in jsResult['DomoBusSystem']['DeviceStateList'][0]['DeviceState'] )
             {

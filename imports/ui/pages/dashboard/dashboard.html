@@ -1,5 +1,78 @@
 <template name="Dashboard">
-	<div class="row black">
-		<p class="cp">Dashboard</p>
-	</div>
+	<div class="row justify-content-center align-items-start m-0 vh-100" style="{{currentBackground}}">
+        <div class="col-10 f-white text-center px-0">
+        	<div class="row justify-content-center align-items-center m-0"> <!-- Top Navbar -->
+        		{{#each divisions}}
+	        		<div class="col text-center division-selection content_center cp hvr-division" style="{{divisionColor @index}}; min-height: 10vh;" >
+	        			<div class="row justify-content-center align-items-center m-0" style="width: 100%">
+	        				<div class="col-2 text-center" style="{{activeDivision}}">
+	        					<i class="fas fa-chevron-right"></i>
+	        				</div>
+	        				<div class="col-8 text-center">
+	        					<span class="f-black">{{name}}</span>
+	        				</div>
+	        				<div class="col-2"></div>
+	        			</div>
+	        		</div>
+	        	{{/each}}
+        	</div>
+        	<div class="row justify-content-center align-items-center m-0"> <!-- Card Zone -->
+        		<div class="col-12 text-center">
+        			<div class="spacer-4"></div>
+        			<div class="row justify-content-center align-items-center m-0">
+	        			{{#each devices}}
+	        				<div class="col device-card grey f-black" style="max-width: 25vw;">
+	        					<div class="row justify-content-center align-items-center p-0 device-card-top white">
+	        						<div class="col-12 text-center my-3">
+				        				<span class="fs-3 fw-4">{{name}}</span>
+				        			</div>
+			        			</div>
+			        			<div class="row justify-content-center align-items-center m-0">
+	        						<div class="col-12 text-center my-2 pb-3">
+				        				{{#each deviceState ID}}
+				        					{{#if isEnum refProperty}}
+				        						{{#each enumerated refProperty}}
+				        							<span>{{name}}:{{value}}</span>
+				        						{{/each}}
+				        					{{/if}}
+				        					{{#if isScalar refProperty}}
+				        						<span id="test">{{getPropertyName refProperty}} : {{value}} {{getPropertyUnit refProperty}}</span>
+				        						{{> slide rP=refProperty rD=refDevice}}
+				        					{{/if}}
+				        				{{/each}}
+				        			</div>
+			        			</div>
+		        			</div>
+	        			{{/each}}
+	        		</div>
+        		</div>
+        	</div>
+       	</div>
+       	<div class="col-2 f-white text-center px-0" style="min-height: 100vh">
+       		<div class="row justify-content-center align-items-center m-0 floor-selection px-2 vh-10 black f-white">
+    			<div class="col-12 text-center">
+    				<span>DOMOBUS SYSTEM</span>
+    			</div>
+    		</div>
+        	{{#each floors}}
+        		<div class="row justify-content-center align-items-center m-0 floor-selection px-2 vh-10 cp hvr-floor" style="{{floorColor heightOrder}}">
+        			<div class="col-2 text-center px-0 mx-0" style="{{activeFloor}}">
+    						<i class="fas fa-chevron-right"></i>
+        			</div>
+        			<div class="col-8 text-center px-0 mx-0 f-white">
+        				<span class="fs-2 fw-4">{{name}}</span>
+        			</div>
+        			<div class="col-2 text-center px-0 mx-0 f-white">
+        				<span class="fs-6 fw-4">{{heightOrder}}</span>
+        			</div>
+        		</div>
+        	{{/each}}
+       	</div>
+    </div>
+
+	
+</template>
+
+<template name="slide">
+	<div id="slider" class="mt-3"></div>
 </template>

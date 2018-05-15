@@ -20,6 +20,7 @@ Meteor.methods({
 		HTTP.call( 'GET', device.address, {}, function( error, response ) {
 			if ( error ) {
 				console.log( error );
+				DeviceState.update( deviceState._id , { $set: { value: newValue }});
 			} else {
 				console.log( response.content );
 				DeviceState.update( deviceState._id , { $set: { value: response.content }});
