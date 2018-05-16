@@ -60,7 +60,7 @@ Meteor.startup(() => {
     			{
     				let prop = obj['PropertyList'][0]['Property'][en]['$'];
     				Meteor.call('newProperty', parseInt(prop['ID']), prop['Name'], prop['AccessMode'], prop['ValueType'], parseInt(prop['RefValueType'])  )
-    				properties.push(prop['ID']);
+    				properties.push(parseInt(prop['ID']));
     			}
     			//console.log(properties);
 

@@ -18,6 +18,11 @@ Template.Dashboard.onCreated(function () {
 	Meteor.subscribe('Floor.all');
 	Meteor.subscribe('House.all');
 	Meteor.subscribe('Division.all');
+	Session.set("addDevice", false);
+});
+
+Template.Dashboard.onRendered( function(){
+
 });
 
 Template.slide.rendered = function() {
@@ -26,16 +31,17 @@ Template.slide.rendered = function() {
 	let rP = this.data.rP;
 	let rvt = Property.findOne({"ID":this.data.rP});
 	let valueType = ScalarValueType.findOne({"ID":rvt.refValueType});
-	//console.log(valueType);
+	let dS = DeviceState.findOne({"refDevice":rD, "refProperty":rP}).value;
 
     if (!this.$('#slider').data('uiSlider')) {
         $( "#slider" ).slider({
-			value:0,
+			value: dS,
 			min: valueType.minValue,
 			max: valueType.maxValue,
 			step: valueType.step,
       		stop: function( event, ui ) {
       			//console.log(ui.value);
+      			//console.log(rD +" - "+rP+ " - "+ui.value);
       			Meteor.call('changeDeviceValue', rD, rP, ui.value );
         		//$( "#amount" ).val( "$" + ui.value );
       		}
@@ -105,9 +111,21 @@ Template.Dashboard.helpers({
 		let rvt = Property.findOne({"ID":refProperty}).refValueType;
 		return EnumValueType.findOne({"ID":rvt}).enumeratedList;
 	},
-	enumeratedIsValue(){
-		console.log(this);
+	valueChecked(device, property, thisEnumValue){
+		let deviceStateValue = DeviceState.findOne({"refDevice":device, "refProperty":property}).value;
+		return deviceStateValue == thisEnumValue;
 	},
+	addDevice(){
+		return Session.get("addDevice");
+	},
+	getDivision(){
+		return Session.get("selected-division");	
+	},
+	deviceTypes(){
+		console.log(DeviceType.find({}));
+		return DeviceType.find({});
+	},
+
 
 
 	//Styling
@@ -139,11 +157,38 @@ Template.Dashboard.events({
 	"click .division-selection": function(){
 		Session.set("selected-division", this.ID );
 	},
-	/*
-	"click #test": function(){
-		Meteor.call('changeDeviceValue', this.refDevice, this.refProperty, 1 );
-	}
-	*/
+	"click .update-value": function(event, template){
+		let device = parseInt(event.currentTarget.getAttribute("device"));
+		let property = parseInt(event.currentTarget.getAttribute("property"));
+		//console.log(device +" - "+property+ " - "+this.value);
+		Meteor.call('changeDeviceValue', device, property, parseInt(this.value) );
+	},
+	"click #add_device": function(){
+		Session.set("addDevice", true);
+	},
+	"submit .new-task": function(event) {
+	    // Prevent default browser form submit
+	    event.preventDefault();
+	 
+	    // Get value from form element
+	    const target = event.target;
+	    const name = target.name.value;
+	    const address = target.address.value;
+	    const refDivision = parseInt(target.refDivision.value);
+	    const deviceType = parseInt(target.deviceType.value);
+	 
+	    // Insert a task into the collection
+	    console.log(name);
+	    console.log(address);
+	    console.log(refDivision);
+	    console.log(deviceType);
+	 
+	 	Meteor.call('addDevice', name, deviceType, address, refDivision);
+
+	    // Clear form
+	    target.name.value = '';
+	    target.address.value = '';
+  	},
 });
 
 
