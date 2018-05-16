@@ -21,10 +21,6 @@ Template.Dashboard.onCreated(function () {
 	Session.set("addDevice", false);
 });
 
-Template.Dashboard.onRendered( function(){
-
-});
-
 Template.slide.rendered = function() {
 
 	let rD = this.data.rD;
@@ -33,8 +29,8 @@ Template.slide.rendered = function() {
 	let valueType = ScalarValueType.findOne({"ID":rvt.refValueType});
 	let dS = DeviceState.findOne({"refDevice":rD, "refProperty":rP}).value;
 
-    if (!this.$('#slider').data('uiSlider')) {
-        $( "#slider" ).slider({
+    if (!this.$('#slider-'+rD+"-"+rP).data('uiSlider')) {
+        $('#slider-'+rD+"-"+rP).slider({
 			value: dS,
 			min: valueType.minValue,
 			max: valueType.maxValue,
@@ -50,6 +46,13 @@ Template.slide.rendered = function() {
     	//$( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
     }
 };
+
+Template.slide.helpers({
+	slideId(){
+		//console.log(this);
+		return "slider-"+this.rD+"-"+this.rP;
+	}
+})
 
 
 Template.Dashboard.helpers({
