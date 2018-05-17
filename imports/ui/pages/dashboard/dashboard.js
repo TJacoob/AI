@@ -18,11 +18,11 @@ Template.Dashboard.onCreated(function () {
 	Meteor.subscribe('Floor.all');
 	Meteor.subscribe('House.all');
 	Meteor.subscribe('Division.all');
-	Session.set("selected-division", 0);
-	Session.set("selected-floor", 0);
 	Session.set("addDevice", false);
-	Session.set("addDevice", false);
+	Session.set("selected-division", "");
+	Session.set("selected-floor", "");
 });
+
 
 Template.slide.rendered = function() {
 
