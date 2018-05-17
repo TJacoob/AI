@@ -32,7 +32,7 @@
 		</ScalarValueType>
 		<ScalarValueType ID="4" Name="Intensity" NumBits="8" Units="%" MinValue="0" MaxValue="100" Step="5">
 		</ScalarValueType>
-		<ScalarValueType ID="5" Name="Volume" NumBits="8" Units=" " MinValue="0" MaxValue="25" Step="1">
+		<ScalarValueType ID="5" Name="Volume" NumBits="8" Units="%" MinValue="0" MaxValue="100" Step="10">
 		</ScalarValueType>
 	</ScalarValueTypeList>
 
@@ -154,7 +154,7 @@
 		<DeviceState RefDevice="11" RefProperty="2" Value="50" InvalidValue="False" />
 		<DeviceState RefDevice="12" RefProperty="1" Value="0" InvalidValue="False" />
 		<DeviceState RefDevice="12" RefProperty="2" Value="2" InvalidValue="False" />
-		<DeviceState RefDevice="12" RefProperty="3" Value="15" InvalidValue="False" />
+		<DeviceState RefDevice="12" RefProperty="3" Value="20" InvalidValue="False" />
 		<DeviceState RefDevice="13" RefProperty="1" Value="0" InvalidValue="False" />
 		<DeviceState RefDevice="14" RefProperty="1" Value="1" InvalidValue="False" />
 		<DeviceState RefDevice="14" RefProperty="2" Value="25" InvalidValue="False" />
