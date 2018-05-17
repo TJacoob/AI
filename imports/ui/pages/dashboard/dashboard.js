@@ -180,12 +180,14 @@ Template.Dashboard.events({
   	"click .floor-selection": function(){
 		Session.set("selected-floor", this.ID );
 		Session.set("selected-division", "" );
+		Session.set("addDevice", false );
 		let base = [180, 50, 50];
 		let color = [base[0]+(10*this.heightOrder), base[1], base[2]];
 		Session.set("floor-color", "background-color: hsl("+color[0]+", "+color[1]+"%, "+color[2]+"%); color: hsl("+color[0]+", "+color[1]+"%, "+color[2]+"%)")
 	},
 	"click .division-selection": function(){
 		Session.set("selected-division", this.ID );
+		Session.set("addDevice", false );
 	},
 	"click .update-value": function(event, template){
 		let device = parseInt(event.currentTarget.getAttribute("device"));

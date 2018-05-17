@@ -1,27 +1,49 @@
 <template name="Dashboard">
 	<div class="row justify-content-center align-items-start m-0 vh-100" style="{{currentBackground}}">
-        <div class="col-10 f-white text-center px-0">
-        	<div class="row justify-content-center align-items-center m-0"> <!-- Top Navbar -->
+		<!-- Mobile Only -->
+		<div class="col-12 hidden-sm-up f-white text-center px-0 mb-0">
+        	{{#each floors}}
+        		<div class="row justify-content-center align-items-center m-0 floor-selection px-2 vh-10 cp hvr-floor" style="{{floorColor heightOrder}}">
+        			<div class="col-2 text-center px-0 mx-0" style="{{activeFloor}}">
+						<i class="fas fa-chevron-right"></i>
+        			</div>
+        			<div class="col-8 text-center px-0 mx-0 f-white">
+        				<span class="fs-2 fw-4">{{name}}</span>
+        			</div>
+        			<div class="col-2 text-center px-0 mx-0 f-white">
+        				<span class="fs-6 fw-4">{{heightOrder}}</span>
+        			</div>
+        		</div>
+        	{{/each}}
+        	<hr class="white m-0" style="height: 0.5vh;">
+       	</div>
+       	<!-- All displays -->
+        <div class="col-12 col-md-10 f-white text-center px-0">
+        	<div class="row justify-content-start align-items-center m-0"> <!-- Top Navbar -->
         		{{#each divisions}}
-	        		<div class="col text-center division-selection content_center cp hvr-division" style="{{divisionColor @index}}; min-height: 10vh;" >
+	        		<div class="col-6 col-md text-center division-selection content_center cp hvr-division px-0" style="{{divisionColor @index}}; min-height: 10vh;" >
 	        			<div class="row justify-content-center align-items-center m-0" style="width: 100%">
-	        				<div class="col-2 text-center" style="{{activeDivision}}">
+	        				<div class="col-1 col-md-1 m-0 px-0"></div>
+	        				<div class="col-1 col-md-1 m-0 px-0 text-center" style="{{activeDivision}}">
 	        					<i class="fas fa-chevron-right"></i>
 	        				</div>
-	        				<div class="col-8 text-center">
+	        				<div class="col-8 col-md-8 m-0 px-0 text-center">
 	        					<span class="f-black">{{name}}</span>
 	        				</div>
-	        				<div class="col-2"></div>
+	        				<div class="col-1 col-md-1 m-0 px-0 text-center" style="{{activeDivision}}">
+	        					<i class="fas fa-chevron-left"></i>
+	        				</div>
+	        				<div class="col-1 col-md-1 m-0 px-0"></div>
 	        			</div>
 	        		</div>
 	        	{{/each}}
         	</div>
-        	<div class="row justify-content-center align-items-center m-0"> <!-- Card Zone -->
-        		<div class="col-12 text-center">
+        	<div class="row justify-content-center align-items-center m-0 vh-85"> <!-- Card Zone -->
+        		<div class="col-12 text-center px-0">
         			<div class="spacer-4"></div>
         			<div class="row justify-content-center align-items-center m-0">
 	        			{{#each devices}}
-	        				<div class="col-10 col-md-3 m-3 device-card grey f-black" >
+	        				<div class="col-10 col-md-3 mx-md-3 my-2 device-card grey f-black" >
 	        					<div class="row justify-content-center align-items-center p-0 device-card-top white">
 	        						<div class="col-12 text-center my-3">
 				        				<span class="fs-3 fw-4">{{name}}</span>
@@ -85,7 +107,8 @@
         		</div>
         	</div>
        	</div>
-       	<div class="col-2 f-white text-center px-0" style="min-height: 100vh">
+       	<!-- Not Mobile Only -->
+       	<div class="col-0 hidden-sm-down col-md-2 f-white text-center px-0" style="min-height: 100vh">
        		<div class="row justify-content-center align-items-center m-0 floor-selection px-2 vh-10 black f-white">
     			<div class="col-12 text-center">
     				<span>DOMOBUS SYSTEM</span>
