@@ -18,6 +18,9 @@ Template.Dashboard.onCreated(function () {
 	Meteor.subscribe('Floor.all');
 	Meteor.subscribe('House.all');
 	Meteor.subscribe('Division.all');
+	Session.set("selected-division", 0);
+	Session.set("selected-floor", 0);
+	Session.set("addDevice", false);
 	Session.set("addDevice", false);
 });
 
@@ -25,8 +28,10 @@ Template.slide.rendered = function() {
 
 	let rD = this.data.rD;
 	let rP = this.data.rP;
-	let rvt = Property.findOne({"ID":this.data.rP});
-	let valueType = ScalarValueType.findOne({"ID":rvt.refValueType});
+	let d = Device.findOne({"ID":rD});
+	let dType = DeviceType.findOne({"ID":d.refDeviceType});
+	let property = dType.propertyList[rP-1];
+	let valueType = ScalarValueType.findOne({"ID":property.refValueType});
 	let dS = DeviceState.findOne({"refDevice":rD, "refProperty":rP}).value;
 
     if (!this.$('#slider-'+rD+"-"+rP).data('uiSlider')) {
@@ -72,13 +77,19 @@ Template.Dashboard.helpers({
 	{
 		return DeviceState.find({"refDevice": id });
 	},
-	isEnum( id )
+	isEnum()
 	{
-		return Property.findOne({"ID":id}).valueType == "ENUM";
+		let d = Device.findOne({"ID":this.refDevice});
+		let dType = DeviceType.findOne({"ID":d.refDeviceType});
+		let property = dType.propertyList[this.refProperty-1];
+		return property.valueType == "ENUM";
 	},
-	isScalar( id )
+	isScalar()
 	{
-		return Property.findOne({"ID":id}).valueType == "SCALAR";
+		let d = Device.findOne({"ID":this.refDevice});
+		let dType = DeviceType.findOne({"ID":d.refDeviceType});
+		let property = dType.propertyList[this.refProperty-1];
+		return property.valueType == "SCALAR";
 	},
 	activeFloor()
 	{	
@@ -99,20 +110,28 @@ Template.Dashboard.helpers({
 		return Session.get("floor-color");
 	},
 
-	getPropertyName(refProperty)
+	getPropertyName()
 	{
-		return Property.findOne({"ID":refProperty}).name;
+		let d = Device.findOne({"ID":this.refDevice});
+		let dType = DeviceType.findOne({"ID":d.refDeviceType});
+		let property = dType.propertyList[this.refProperty-1];
+		return property.name;
 	},
 
 	getPropertyUnit(refProperty)
 	{
-		let rvt = Property.findOne({"ID":refProperty}).refValueType;
-		return ScalarValueType.findOne({"ID":rvt}).units;
+		let d = Device.findOne({"ID":this.refDevice});
+		let dType = DeviceType.findOne({"ID":d.refDeviceType});
+		let property = dType.propertyList[this.refProperty-1];
+		return ScalarValueType.findOne({"ID":property.refValueType}).units;
 	},
-	enumerated( refProperty )
+	enumerated()
 	{
-		let rvt = Property.findOne({"ID":refProperty}).refValueType;
-		return EnumValueType.findOne({"ID":rvt}).enumeratedList;
+		let d = Device.findOne({"ID":this.refDevice});
+		let dType = DeviceType.findOne({"ID":d.refDeviceType});
+		let property = dType.propertyList[this.refProperty-1];
+		//let rvt = Property.findOne({"ID":refProperty}).refValueType;
+		return EnumValueType.findOne({"ID":property.refValueType}).enumeratedList;
 	},
 	valueChecked(device, property, thisEnumValue){
 		let deviceStateValue = DeviceState.findOne({"refDevice":device, "refProperty":property}).value;
@@ -125,10 +144,18 @@ Template.Dashboard.helpers({
 		return Session.get("selected-division");	
 	},
 	deviceTypes(){
-		console.log(DeviceType.find({}));
+		//console.log(DeviceType.find({}));
 		return DeviceType.find({});
 	},
-
+	inDivision(){
+		return Session.get("selected-division") != "";
+	},
+	readWrite(){
+		let d = Device.findOne({"ID":this.refDevice});
+		let dType = DeviceType.findOne({"ID":d.refDeviceType});
+		let property = dType.propertyList[this.refProperty-1];
+		return property.accessMode == "RW";
+	},
 
 
 	//Styling
@@ -181,16 +208,18 @@ Template.Dashboard.events({
 	    const deviceType = parseInt(target.deviceType.value);
 	 
 	    // Insert a task into the collection
-	    console.log(name);
-	    console.log(address);
-	    console.log(refDivision);
-	    console.log(deviceType);
+	    //console.log(name);
+	    //console.log(address);
+	    //console.log(refDivision);
+	    //console.log(deviceType);
 	 
 	 	Meteor.call('addDevice', name, deviceType, address, refDivision);
 
 	    // Clear form
 	    target.name.value = '';
 	    target.address.value = '';
+
+	    Session.set("addDevice", false);
   	},
 });
 

@@ -8,15 +8,15 @@ DeviceType.allow({
 });
 
 DeviceTypeSchema = new SimpleSchema({
-  	ID:{
-  		type: SimpleSchema.Integer,
-  		label: "ID",
-      unique: true
-  	},
-  	name:{
-  		type: String,
-  		label: "Name"
-  	},
+    ID:{
+        type: SimpleSchema.Integer,
+        label: "ID",
+        unique: true
+    },
+    name:{
+        type: String,
+        label: "Name"
+    },
     refDeviceClass:{
         type: SimpleSchema.Integer,
         label: "Ref Device Class"
@@ -27,9 +27,24 @@ DeviceTypeSchema = new SimpleSchema({
     },
     propertyList:
     {
-        type: [SimpleSchema.Integer],
+        type: [Object],
         label: "Properties"
-    }
+    },
+    "propertyList.$.ID": {
+        type: SimpleSchema.Integer
+    },
+    "propertyList.$.name": {
+        type: String
+    },
+    "propertyList.$.accessMode": {
+        type: String
+    },
+    "propertyList.$.valueType": {
+        type: String
+    },
+    "propertyList.$.refValueType": {
+        type: SimpleSchema.Integer
+    },
 });
 
 DeviceType.attachSchema( DeviceTypeSchema ); 

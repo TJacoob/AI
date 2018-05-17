@@ -1,4 +1,3 @@
-
 export const DeviceState = new Mongo.Collection( 'deviceState' );
 
 DeviceState.allow({

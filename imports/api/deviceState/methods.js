@@ -8,8 +8,8 @@ import { Device } from '../device/device.js';
 Meteor.methods({
  	newDeviceState: function(refDevice, refProperty, value, invalidValue)
  	{
- 		if ( DeviceState.find({'refDevice':refDevice}).count() == 0 && DeviceState.find({'refProperty':refProperty}).count() == 0  )		// Unique
- 			DeviceState.insert({refDevice:refDevice, refProperty:refProperty, value:value, invalidValue:invalidValue});
+ 		if (DeviceState.find({"refDevice":refDevice, "refProperty":refProperty}).count() == 0 )
+			DeviceState.insert({refDevice:refDevice, refProperty:refProperty, value:value, invalidValue:invalidValue});
  	},
 
  	changeDeviceValue: function( refDevice, refProperty, newValue )
@@ -20,10 +20,13 @@ Meteor.methods({
 		HTTP.call( 'GET', device.address, {}, function( error, response ) {
 			if ( error ) {
 				console.log( error );
-				DeviceState.update( deviceState._id , { $set: { value: newValue }});
+				//DeviceState.update( deviceState._id , { $set: { value: newValue }});
 			} else {
 				console.log( response.content );
-				DeviceState.update( deviceState._id , { $set: { value: response.content }});
+				// If sério 
+					//DeviceState.update( deviceState._id , { $set: { value: response.content }});
+				// If not sério
+					DeviceState.update( deviceState._id , { $set: { value: newValue }});
 				/*
 				This will return the HTTP response object that looks something like this:
 				{

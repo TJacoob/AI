@@ -1,0 +1,83 @@
+Hardware:
+	Raspberry 1 - Regular Led ( On/Off )
+	Raspberry 2 - Intensity Led ( 1 a 4 )
+	Raspberry 3 - Rádio ( On/Off - Estações(ENUMS) - Volume ( Valor Escalar em Decibeis))
+	Raspberry 4 - Termometro
+
+Piso -1:
+	Garagem
+		Luz    	( On/Off )
+		
+
+Piso 0:
+	Sala de Estar
+		Luz				( On/Off )
+		Televisão		( On/Off - Canal - Volume )
+		Ar Condicionado	( On/Off - Temperatura )
+		Tranca da Porta (Lock) 	( Aberto/Fechado )
+		Termometro		( Random Value de Temperatura )
+	Cozinha
+		Luz				( Raspberry 1 )  ( On/Off )
+		Frigorifico		( On/Off - Temperatura Frio )
+		Roomba			( On/Off )
+		Forno			( On/Off - Temperatura Forno )
+	Escritório
+		Luz Regulável   ( Raspberry 2 )  	( On/Off - Intensidade)
+		Rádio			( Raspberry 3 ) 	( On/Off - Volume - Estação )
+	Casa de Banho
+		Luz				( On/Off )
+		Aquecedor		( On/Off - Temperatura )
+		Termometro		( Random Value de Temperatura )
+
+Piso 1:
+	Quarto 1
+		Luz Regulável	( On/Off - Intensidade )
+		Aquecedor		( On/Off - Temperatura )
+	Quarto 2
+		Luz				( On/Off )
+		Aquecedor		( On/Off - Temperatura )
+	Casa de Banho 2
+		Luz				( On/Off )
+		Aquecedor		( On/Off - Temperatura )
+
+
+Propriedades:
+	ENUM:
+		On-Off	( 1-0 )
+		Canal ( 1-RTP, 2-RTP2, 3-SIC, 4-TVI )
+		Estação ( 1-RFM, 2-Orbital, 3-Comercial, 4-Antena 1 
+		Lock ( 1-Aberto, 0-Fechado )
+	SCALAR:
+		Temperatura Ar ( -20 a 50, step 2º )
+		Temperatura Forno ( 0-300, step 10º )
+		Temperatura Frio ( -15 a 15, step 2º )
+		Intensidade ( 0-100% )
+		Volume ( 0-25 )
+
+Tipos de Devices:
+	Luz:
+		- On/Off
+	Luz Regulável:
+		- On/Off
+		- Intensidade
+	Aquecedor:
+	 	- On/Off
+	 	- Temperatura Ar
+ 	Forno:
+	 	- On/Off
+	 	- Temperatura Forno
+ 	Frigorifico:
+	 	- On/Off
+	 	- Temperatura Frio
+	Televisão:
+		- On/Off
+		- Canal
+		- Volume
+	Rádio:
+		- On/Off
+		- Estação
+		- Volume
+	Lock:
+		- Open/Closed
+	Termometro: (RO)
+		- Temperatura Ar

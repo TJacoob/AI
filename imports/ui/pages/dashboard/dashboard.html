@@ -21,7 +21,7 @@
         			<div class="spacer-4"></div>
         			<div class="row justify-content-center align-items-center m-0">
 	        			{{#each devices}}
-	        				<div class="col mx-3 device-card grey f-black" style="max-width: 25vw;">
+	        				<div class="col-3 m-3 device-card grey f-black" style="max-width: 25vw;">
 	        					<div class="row justify-content-center align-items-center p-0 device-card-top white">
 	        						<div class="col-12 text-center my-3">
 				        				<span class="fs-3 fw-4">{{name}}</span>
@@ -29,27 +29,38 @@
 			        			</div>
 		        				{{#each deviceState ID}}
 			        				<div class="row justify-content-center align-items-center m-0 property-area">
-        								<div class="col-12 text-center my-2 pb-3">
-			        					{{#if isEnum refProperty}}
-	        								{{#each enumerated refProperty}}
+        								<div class="col-12 text-center my-2">
+			        					{{#if isEnum}}
+			        						<div class="row justify-content-center align-items-center mx-0 my-2">
+	        								{{#each enumerated}}
+	        									<div class="col-6 text-center pb-1">
 	        									{{#if valueChecked ../refDevice ../refProperty value}}
-	        										<span class="update-value" device={{../refDevice}} property={{../refProperty}}><i class="far fa-dot-circle mr-2"></i>{{name}}</span><br>	
+	        										<span class="update-value" device={{../refDevice}} property={{../refProperty}}><i class="far fa-dot-circle mr-2"></i>{{name}}</span><br>
 	        									{{else}}
 	        										<span class="update-value" device={{../refDevice}} property={{../refProperty}}><i class="far fa-circle mr-2"></i>{{name}}</span><br>	
 	        									{{/if}}
+	        									</div>
 											{{/each}}
+											</div>
 			        					{{/if}}
-			        					{{#if isScalar refProperty}}
-			        						<span id="test">{{getPropertyName refProperty}} : {{value}} {{getPropertyUnit refProperty}}</span>
-			        						{{> slide rP=refProperty rD=refDevice}}
+			        					{{#if isScalar}}
+			        						<div class="row justify-content-center align-items-center mx-0 mt-2 mb-3">
+			        							<div class="col-12 text-center">
+		        									<span id="test">{{getPropertyName refProperty}} : {{value}} {{getPropertyUnit refProperty}}</span>
+		        									{{#if readWrite}}
+			        									{{> slide rP=refProperty rD=refDevice}}
+			        								{{/if}}
+			        							</div>
+			        						</div>
 			        					{{/if}}
 			        					</div>
 			        				</div>
 		        				{{/each}}
 		        			</div>
 	        			{{/each}}
-	        			<div class="col mx-3 f-black" style="max-width: 25vw;">
-	        				<div class="row justify-content-center align-items-center p-0 device-card white cp">
+	        			{{#if inDivision}}
+		        			<div class="col-3 m-3 f-black" style="max-width: 25vw;">
+		        				<div class="row justify-content-center align-items-center p-0 device-card white cp">
 	        						<div class="col-12 text-center my-3">
 	        							{{#if addDevice}}
 				        					<form class="new-task">
@@ -68,7 +79,8 @@
 	        							{{/if}}
 				        			</div>
 			        			</div>
-	        			</div>
+		        			</div>
+		        		{{/if}}
 	        		</div>
         		</div>
         	</div>

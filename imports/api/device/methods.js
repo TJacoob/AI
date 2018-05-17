@@ -23,7 +23,7 @@ Meteor.methods({
 		let propertyList = DeviceType.findOne({"ID":refDeviceType}).propertyList;
 		for ( prop=0; prop<propertyList.length; prop++)
 		{
-			DeviceState.insert({refDevice:id, refProperty:propertyList[prop], value:0, invalidValue:false});
+			DeviceState.insert({refDevice:id, refProperty:propertyList[prop].ID, value:0, invalidValue:false});
 		}
  	}
 });
