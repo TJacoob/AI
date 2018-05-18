@@ -22,7 +22,7 @@ Meteor.methods({
 				console.log( error );
 				//DeviceState.update( deviceState._id , { $set: { value: newValue }});
 			} else {
-				console.log( response.content );
+				//console.log( response.content );
 				// If sério 
 					//DeviceState.update( deviceState._id , { $set: { value: response.content }});
 				// If not sério

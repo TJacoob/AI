@@ -15,7 +15,7 @@ Piso 0:
 		Televisão		( On/Off - Canal - Volume )
 		Ar Condicionado	( On/Off - Temperatura )
 		Tranca da Porta (Lock) 	( Aberto/Fechado )
-		Termometro		( Random Value de Temperatura )
+		Termometro		( Random Value de Temperatura )	( Raspberry 4 )
 	Cozinha
 		Luz				( Raspberry 1 )  ( On/Off )
 		Frigorifico		( On/Off - Temperatura Frio )
@@ -27,7 +27,7 @@ Piso 0:
 	Casa de Banho
 		Luz				( On/Off )
 		Aquecedor		( On/Off - Temperatura )
-		Termometro		( Random Value de Temperatura )
+		Termometro		( Random Value de Temperatura ) 
 
 Piso 1:
 	Quarto 1

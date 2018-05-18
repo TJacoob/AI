@@ -28,6 +28,7 @@ body { font-family: 'Hind', sans-serif !important; }
 .flh-2 { line-height: 1.4em; }
 .flh-3 { line-height: 1.6em; }
 .f-inherit { font-family: inherit !important; }
+.f-underline { text-decoration: underline };
 
 /* Links */
 a {	text-decoration: none !important; color:inherit !important; }

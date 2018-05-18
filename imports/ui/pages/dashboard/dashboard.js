@@ -98,6 +98,11 @@ Template.Dashboard.helpers({
 		else
 			return "color: inherit";
 	},
+	activeFloorMobile()
+	{	
+		if ( this.ID == Session.get("selected-floor") )
+			return "f-underline";
+	},
 	activeDivision()
 	{	
 		if ( this.ID == Session.get("selected-division") )

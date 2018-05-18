@@ -2,26 +2,21 @@
 	<div class="row justify-content-center align-items-start m-0 vh-100" style="{{currentBackground}}">
 		<!-- Mobile Only -->
 		<div class="col-12 hidden-sm-up f-white text-center px-0 mb-0">
-        	{{#each floors}}
-        		<div class="row justify-content-center align-items-center m-0 floor-selection px-2 vh-10 cp hvr-floor" style="{{floorColor heightOrder}}">
-        			<div class="col-2 text-center px-0 mx-0" style="{{activeFloor}}">
-						<i class="fas fa-chevron-right"></i>
+        		<div class="row justify-content-center align-items-center m-0 p-0 cp">
+        			{{#each floors}}
+        			<div class="col-4 text-center px-0 py-3 mx-0 floor-selection" style="{{floorColor heightOrder}}">
+						<span class="f-white {{activeFloorMobile}}">Floor {{heightOrder}}</span>
         			</div>
-        			<div class="col-8 text-center px-0 mx-0 f-white">
-        				<span class="fs-2 fw-4">{{name}}</span>
-        			</div>
-        			<div class="col-2 text-center px-0 mx-0 f-white">
-        				<span class="fs-6 fw-4">{{heightOrder}}</span>
-        			</div>
+        			{{/each}}
         		</div>
-        	{{/each}}
+        	
         	<hr class="white m-0" style="height: 0.5vh;">
        	</div>
        	<!-- All displays -->
         <div class="col-12 col-md-10 f-white text-center px-0">
         	<div class="row justify-content-start align-items-center m-0"> <!-- Top Navbar -->
         		{{#each divisions}}
-	        		<div class="col-6 col-md text-center division-selection content_center cp hvr-division px-0" style="{{divisionColor @index}}; min-height: 10vh;" >
+	        		<div class="col-6 col-md text-center division-selection content_center cp hvr-division px-0 py-3" style="{{divisionColor @index}};" >
 	        			<div class="row justify-content-center align-items-center m-0" style="width: 100%">
 	        				<div class="col-1 col-md-1 m-0 px-0"></div>
 	        				<div class="col-1 col-md-1 m-0 px-0 text-center" style="{{activeDivision}}">
@@ -57,9 +52,9 @@
 	        								{{#each enumerated}}
 	        									<div class="col-6 text-center pb-1 px-1">
 	        									{{#if valueChecked ../refDevice ../refProperty value}}
-	        										<span class="update-value" device={{../refDevice}} property={{../refProperty}}><i class="far fa-dot-circle mr-2"></i>{{name}}</span><br>
+	        										<span class="update-value cp" device={{../refDevice}} property={{../refProperty}}><i class="far fa-dot-circle mr-2"></i>{{name}}</span><br>
 	        									{{else}}
-	        										<span class="update-value" device={{../refDevice}} property={{../refProperty}}><i class="far fa-circle mr-2"></i>{{name}}</span><br>	
+	        										<span class="update-value cp" device={{../refDevice}} property={{../refProperty}}><i class="far fa-circle mr-2"></i>{{name}}</span><br>	
 	        									{{/if}}
 	        									</div>
 											{{/each}}
@@ -110,7 +105,7 @@
        	</div>
        	<!-- Not Mobile Only -->
        	<div class="col-0 hidden-sm-down col-md-2 f-white text-center px-0" style="min-height: 100vh">
-       		<div class="row justify-content-center align-items-center m-0 floor-selection px-2 vh-10 black f-white">
+       		<div class="row justify-content-center align-items-center m-0 floor-selection px-2 py-3 black f-white">
     			<div class="col-12 text-center">
     				<span>DOMOBUS SYSTEM</span>
     			</div>
