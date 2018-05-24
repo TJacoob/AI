@@ -117,11 +117,11 @@
 		<Device ID="4" RefDeviceType="3" Name="Living Room Air Conditioning" Address="http://localhost/" RefDivision="2" AccessLevel="1,1" UserBlocked="1,1"></Device>
 		<Device ID="5" RefDeviceType="8" Name="Main Entrance Lock" Address="http://localhost/" RefDivision="2" AccessLevel="1,1" UserBlocked="1,1"></Device>
 		<Device ID="6" RefDeviceType="9" Name="Living Room Temperature" Address="http://localhost/" RefDivision="2" AccessLevel="1,1" UserBlocked="1,1"></Device>
-		<Device ID="7" RefDeviceType="1" Name="Kitchen Light" Address="http://localhost/" RefDivision="3" AccessLevel="1,1" UserBlocked="1,1"></Device>
+		<Device ID="7" RefDeviceType="1" Name="Kitchen Light" Address="http://192.168.1.4:5000/led" RefDivision="3" AccessLevel="1,1" UserBlocked="1,1"></Device>
 		<Device ID="8" RefDeviceType="5" Name="Fridge" Address="http://localhost/" RefDivision="3" AccessLevel="1,1" UserBlocked="1,1"></Device>
 		<Device ID="9" RefDeviceType="1" Name="Roomba" Address="http://localhost/" RefDivision="3" AccessLevel="1,1" UserBlocked="1,1"></Device>
 		<Device ID="10" RefDeviceType="4" Name="Oven" Address="http://localhost/" RefDivision="3" AccessLevel="1,1" UserBlocked="1,1"></Device>
-		<Device ID="11" RefDeviceType="2" Name="Office Light" Address="http://localhost/" RefDivision="4" AccessLevel="1,1" UserBlocked="1,1"></Device>
+		<Device ID="11" RefDeviceType="2" Name="Office Light" Address="http://192.168.1.2:5000/intensity" RefDivision="4" AccessLevel="1,1" UserBlocked="1,1"></Device>
 		<Device ID="12" RefDeviceType="7" Name="Office Radio" Address="http://localhost/" RefDivision="4" AccessLevel="1,1" UserBlocked="1,1"></Device>
 		<Device ID="13" RefDeviceType="1" Name="Bathroom Light" Address="http://localhost/" RefDivision="5" AccessLevel="1,1" UserBlocked="1,1"></Device>
 		<Device ID="14" RefDeviceType="3" Name="Bathroom Heater" Address="http://localhost/" RefDivision="5" AccessLevel="1,1" UserBlocked="1,1"></Device>
