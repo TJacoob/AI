@@ -29,19 +29,78 @@ Meteor.methods({
 				}
 			});	
  		}
- 		else if ( refDevice == 11 )		// Kitchen Light
+ 		if ( refDevice == 6 )		// Temperature Sensor
+ 		{
+ 			console.log("updated temperature")
+ 			HTTP.call( 'GET', device.address+"/temp", {}, function( error, response ) {
+				if ( error ) {
+					console.log( error );
+				} else {
+					//console.log( response.content );
+					DeviceState.update( deviceState._id , { $set: { value: response.content }});
+				}
+			});	
+ 		}
+ 		if ( refDevice == 12 )		// Radio
+ 		{
+ 			//console.log("Radio");
+ 			if ( refProperty == 1 )
+ 			{
+ 				HTTP.call( 'GET', device.address+"toggle?val="+newValue, {}, function( error, response ) {
+				if ( error ) {
+					console.log( error );
+				} else {
+					//console.log( response.content );
+					DeviceState.update( deviceState._id , { $set: { value: response.content }});
+				}
+				});	
+ 			}
+ 			else if ( refProperty == 3 )
+ 			{
+ 				HTTP.call( 'GET', device.address+"volume?val="+newValue, {}, function( error, response ) {
+				if ( error ) {
+					console.log( error );
+				} else {
+					//console.log( response.content );
+					DeviceState.update( deviceState._id , { $set: { value: response.content }});
+				}
+				});	
+ 			}
+ 			else if ( refProperty == 2 )
+ 			{
+ 				/*
+ 				HTTP.call( 'GET', device.address+"volume?val="+newValue, {}, function( error, response ) {
+				if ( error ) {
+					console.log( error );
+				} else {
+					DeviceState.update( deviceState._id , { $set: { value: response.content }});
+				}
+				});	*/
+ 			}
+ 		}
+ 		else if ( refDevice == 11 )		// Intensity Light
  		{
  			if ( refProperty == 1 && newValue == 0 )
  			{
  				console.log("turn off");
- 				HTTP.call( 'GET', device.address+"?val=0", {}, function( error, response ) {if ( error ) {console.log( error );} else {	DeviceState.update( deviceState._id , { $set: { value: response.content }});}});	
+ 				HTTP.call( 'GET', device.address+"?val=0", {}, function( error, response ) {if ( error ) {console.log( error );} else {	console.log(response.content);DeviceState.update( deviceState._id , { $set: { value: response.content }});}});	
  				//HTTP.call( 'GET', device.address+"?val=", {}, function( error, response ) {if ( error ) {console.log( error );} else {	DeviceState.update( deviceState._id , { $set: { value: newValue }});}});	
  			}
  			if ( refProperty == 1 && newValue == 1 )
  			{
  				console.log("turn on")
- 				let value = DeviceState.findOne({"refDevice":11, "refProperty":2}).value;
- 				HTTP.call( 'GET', device.address+"?val="+value, {}, function( error, response ) {if ( error ) {console.log( error );} else {	DeviceState.update( deviceState._id , { $set: { value: response.content }});}});	
+ 				let newValue = DeviceState.findOne({"refDevice":11, "refProperty":2}).value;
+ 				let value = 0;
+	 				if ( newValue == 0)
+	 					value = 0;
+	 				if ( newValue > 0 && newValue < 33 )
+	 					value = 1;
+	 				else if ( newValue >= 33 && newValue < 66 )
+	 					value = 2;
+	 				else if ( newValue >= 66 && newValue <= 100 )
+	 					value = 3;
+ 				console.log(value);
+ 				HTTP.call( 'GET', device.address+"?val="+value, {}, function( error, response ) {if ( error ) {console.log( error );} else {	console.log(response.content);if(newValue>1) newValue=1;DeviceState.update( deviceState._id , { $set: { value: newValue }});}});	
  				//HTTP.call( 'GET', device.address+"?val="+value, {}, function( error, response ) {if ( error ) {console.log( error );} else {	DeviceState.update( deviceState._id , { $set: { value: newValue }});}});	
  			}
  			if ( refProperty == 2)

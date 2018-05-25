@@ -2,9 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import { Floor } from '/imports/api/floor/floor.js';
 import { Division } from '/imports/api/division/division.js';
 import { Device } from '/imports/api/device/device.js';
+import { DeviceState } from '/imports/api/deviceState/deviceState.js';
 import { Property } from '/imports/api/property/property.js';
 import { ScalarValueType } from '/imports/api/scalarValueType/scalarValueType.js';
 import './dashboard.html';
+
+
+
 
 Template.Dashboard.onCreated(function () {
 	Meteor.subscribe('links.all');
@@ -21,6 +25,14 @@ Template.Dashboard.onCreated(function () {
 	Session.set("addDevice", false);
 	Session.set("selected-division", "");
 	Session.set("selected-floor", "");
+	// Specific for Demonstration, remove afterwards:
+    var myInterval = Meteor.setInterval(function() {
+      if ( DeviceState.find({"refDevice":6,"refProperty":1}).count() == 1)
+	    {
+	        Meteor.call('changeDeviceValue', 6,1, 0);   
+	        console.log("update");
+	    }
+   	}, 8000);
 });
 
 
@@ -229,6 +241,7 @@ Template.Dashboard.events({
 	    Session.set("addDevice", false);
   	},
 });
+
 
 
 
