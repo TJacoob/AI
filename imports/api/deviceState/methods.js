@@ -17,7 +17,7 @@ Meteor.methods({
  		const deviceState = DeviceState.findOne({"refDevice":refDevice, "refProperty":refProperty});
  		const device = Device.findOne({"ID": refDevice});
 
- 		HTTP.call( 'GET', device.address+"/?prop="refProperty+"/?val="+newValue, {}, function( error, response ) {
+ 		HTTP.call( 'GET', device.address+"/?prop="+refProperty+"/?val="+newValue, {}, function( error, response ) {
 			if ( error ) {
 				console.log( error );
 			} else {
