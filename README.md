@@ -1,1 +1,1 @@
-AI
+Domobus is a home automation system specification to control domotics devices and other appliances. For this project we used Meteor to develop a web application that receives a Domobus XML file and allows connection with real life devices using HTTP requests.
